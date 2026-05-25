@@ -2,10 +2,12 @@ import crypto from 'crypto'
 
 const ALGORITHM = 'aes-256-gcm'
 const IV_LENGTH = 16
-const TAG_LENGTH = 16
 
 const getKey = () => {
   const secret = process.env.ENCRYPTION_KEY
+  if (!secret) {
+    throw new Error('ENCRYPTION_KEY environment variable is not set')
+  }
   return crypto.scryptSync(secret, 'salt', 32)
 }
 
@@ -23,8 +25,13 @@ export const encrypt = (text) => {
 
 export const decrypt = (encryptedText) => {
   const key = getKey()
-  const [ivHex, tagHex, encrypted] = encryptedText.split(':')
+  const parts = encryptedText.split(':')
 
+  if (parts.length !== 3) {
+    throw new Error('Invalid encrypted text format')
+  }
+
+  const [ivHex, tagHex, encrypted] = parts
   const iv = Buffer.from(ivHex, 'hex')
   const tag = Buffer.from(tagHex, 'hex')
   const decipher = crypto.createDecipheriv(ALGORITHM, key, iv)

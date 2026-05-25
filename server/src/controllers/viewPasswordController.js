@@ -49,6 +49,6 @@ export const viewPassword = async (req, res) => {
       },
     })
   } catch (error) {
-    res.status(500).json({ message: 'Server error', error: error.message })
+    res.status(500).json({ message: 'Failed to decrypt password. Please contact support.', error: error.message })
   }
 }
