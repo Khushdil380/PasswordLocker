@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #9F3AAA;
+  --color-primary-light: #B84FC4;
+  --color-primary-dark: #7A2D83;
+  --color-secondary: #F3E5F5;
+  --color-accent: #CE93D8;
+  --color-background: #FAFAFA;
+  --color-surface: #FFFFFF;
+  --color-text-primary: #212121;
+  --color-text-secondary: #757575;
+  --color-error: #D32F2F;
+  --color-success: #388E3C;
+  --color-warning: #F57C00;
+  --color-dark: #1a1a2e;
+  --font-family-base: 'Roboto Slab', serif;
+  --transition-default: 0.3s ease;
+  --transition-fast: 0.15s ease;
+  --transition-slow: 0.5s ease;
+  --container-max: 1200px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family-base);
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Reusable transition utility */
+.transition-base {
+  transition: all var(--transition-default);
+}
+
+.transition-fast {
+  transition: all var(--transition-fast);
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}

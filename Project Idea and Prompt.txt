@@ -1,0 +1,50 @@
+Project Idea: We often forget our passwords, or—due to having multiple bank accounts—we get confused amidst a multitude of different passwords. Furthermore, initiating the "Forgot Password" process can sometimes be difficult or restricted by a limited number of attempts. At other times, we may lack the necessary credentials to reset a password, and the entire process often feels time-consuming and frustrating.
+
+To resolve these issues, I intend to create a website named "Password Locker." This platform would allow users to manage all their passwords using just a single ID and password, thereby eliminating the need to memorize every individual password. A single master password could truly simplify our lives.
+
+
+
+
+
+
+
+Project Overall Functionality: To begin with, the project's homepage will display details about the project itself and feature a "Get Started" button. Here, users can create an account; all basic functionalities—such as account creation, login, and password recovery—will be available.
+After logging in, users can access their dashboard, where they can create password categories and update their profile. A search bar facility will also be provided. In addition to these features, the most important functionality will be the "Add New Password" option. This section will allow users to manually enter—or automatically generate—a password, along with a Title, Description, Destination Link, and User ID, before saving the entry.
+
+Most importantly—since we are storing crucial data—passwords must be stored in an encrypted format. To further enhance security, a common "Master Password" can be implemented; this password will be required whenever a user attempts to view their stored passwords.
+
+
+Furthermore, when viewing a stored password, users should be able to see all associated details. A "Copy" button should be provided for the password, and a "Go To" button should appear next to the destination link, allowing users to either copy the password or navigate to the website with a single click. Additionally—if technically feasible—the login credentials should be automatically populated on the target website.
+
+
+
+
+
+Tech stack: Html, css, tailwind, javascript, node js , express js,  react, Mongodb, brevo ( for email sending), GitHub, vercel for deployment.
+
+
+
+Must-Haves:
+Website Preloader
+Font Family: Roboto Slab Medium
+PWA support, enabling installation on desktops; additionally, an "Add to Home Screen" option should be available on Android devices.
+There must be no issues with the Login/Logout functionality. Users should be automatically logged out after 1 hour to prevent unauthorized access, and the login/logout state should not be affected by using the browser's back and forward buttons.
+
+
+
+
+Color Scheme: #9F3AAA Purple theme (Now you can decide remaining color for different sections) 
+
+
+
+While Implementing and editing the file keep this rule in mind
+1. Website color, font, size, animation, transaction, style should be consistent. Always reuse the components 
+2. Do not write the hard code. 
+3. A single file can't contain more than 100 line of code, if there then breaks into multiple file and put into a single directory so that editing and updation will be easy. So maintain the modularity 
+4. If prompt have any minor mistake then you by default can understand the semantic, not just what was written 
+5. Website Should be responsive everywhere. Only two responsiveness, the first one is by default Laptop/desktop and 2nd one is Mobile Responsive
+6. Do not add unnccessary document and working progress. Keep maintain everything fine and clear without confusion.
+
+
+
+in the component you have made files, i think this should goes to single folder so that it should be clear, because throught the project we will have n numbers of component, so for each there should be seperated folder and then corresponding file in that

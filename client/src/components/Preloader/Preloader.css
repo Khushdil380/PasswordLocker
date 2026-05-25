@@ -1,0 +1,86 @@
+@import './PreloaderAnimations.css';
+
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 50%, var(--color-primary-light) 100%);
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.preloader--fade {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.preloader__glossy {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 30% 20%,
+    rgba(255, 255, 255, 0.15) 0%,
+    transparent 60%
+  );
+  pointer-events: none;
+}
+
+.preloader__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.preloader__shield {
+  width: 80px;
+  height: 80px;
+  animation: shieldPulse 1.8s ease-in-out infinite;
+}
+
+.preloader__icon {
+  width: 100%;
+  height: 100%;
+  color: #ffffff;
+}
+
+.preloader__shield-path {
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
+  animation: drawShield 1.5s ease forwards;
+}
+
+.preloader__lock-path {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  animation: drawLock 1.2s ease 0.6s forwards;
+}
+
+.preloader__text {
+  font-family: var(--font-family-base);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  opacity: 0;
+  animation: fadeUp 0.6s ease 1s forwards;
+}
+
+.preloader__bar {
+  width: 160px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+  opacity: 0;
+  animation: fadeUp 0.4s ease 1.2s forwards;
+}
+
+.preloader__bar-fill {
+  height: 100%;
+  background: #ffffff;
+  border-radius: 4px;
+  animation: loadBar 1.8s ease 1.2s forwards;
+}
