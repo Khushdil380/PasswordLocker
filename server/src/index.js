@@ -18,6 +18,16 @@ app.use(cors(CORS_OPTIONS))
 app.use(express.json())
 app.use(cookieParser())
 
+// Ensure DB is connected before handling requests
+app.use(async (req, res, next) => {
+  try {
+    await connectDB()
+    next()
+  } catch (error) {
+    res.status(500).json({ message: 'Database connection failed' })
+  }
+})
+
 // Routes
 app.use('/api/auth', authRoutes)
 app.use('/api/profile', profileRoutes)
@@ -33,9 +43,6 @@ app.get('/api/health', (req, res) => {
 app.get('/', (req, res) => {
   res.json({ status: 'ok', message: 'Password Locker API' })
 })
-
-// Connect DB
-connectDB()
 
 // Local dev server
 if (process.env.NODE_ENV !== 'production') {
