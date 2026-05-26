@@ -3,7 +3,6 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
 import Preloader from './components/Preloader/Preloader'
 import AppRoutes from './routes/AppRoutes'
-import PWAPrompt from './components/PWAPrompt/PWAPrompt'
 
 function App() {
   const [loading, setLoading] = useState(true)
@@ -14,7 +13,6 @@ function App() {
       <Router>
         <AppRoutes />
       </Router>
-      <PWAPrompt />
     </AuthProvider>
   )
 }
