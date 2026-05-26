@@ -8,12 +8,13 @@ import { passwordChangeOtpTemplate } from '../utils/emailTemplates.js'
 export const sendChangePasswordOtp = async (req, res) => {
   try {
     const otp = generateOtp()
+    const hashedOtp = await bcrypt.hash(otp, 10)
     const purpose = req.body.purpose || 'change-password'
 
     await Otp.findOneAndDelete({ email: req.user.email, 'userData.purpose': purpose })
     await Otp.create({
       email: req.user.email,
-      otp,
+      otp: hashedOtp,
       userData: { purpose, userId: req.user._id.toString() },
     })
 
@@ -49,7 +50,8 @@ export const changePassword = async (req, res) => {
       return res.status(400).json({ message: 'OTP expired. Please try again.' })
     }
 
-    if (otpRecord.otp !== otp) {
+    const isOtpValid = await bcrypt.compare(otp, otpRecord.otp)
+    if (!isOtpValid) {
       return res.status(400).json({ message: 'Invalid OTP' })
     }
 
@@ -82,7 +84,8 @@ export const changeMasterPassword = async (req, res) => {
       return res.status(400).json({ message: 'OTP expired. Please try again.' })
     }
 
-    if (otpRecord.otp !== otp) {
+    const isOtpValid = await bcrypt.compare(otp, otpRecord.otp)
+    if (!isOtpValid) {
       return res.status(400).json({ message: 'Invalid OTP' })
     }
 

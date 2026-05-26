@@ -1,11 +1,11 @@
 import User from '../models/User.js'
 import Otp from '../models/Otp.js'
+import bcrypt from 'bcryptjs'
 import { generateOtp } from '../utils/generateOtp.js'
 import { generateToken } from '../utils/jwt.js'
 import { sendEmail } from '../utils/emailService.js'
 import { otpEmailTemplate, welcomeEmailTemplate } from '../utils/emailTemplates.js'
 import { COOKIE_OPTIONS, DEFAULT_MASTER_PASSWORD } from '../config/constants.js'
-import bcrypt from 'bcryptjs'
 
 export const signup = async (req, res) => {
   try {
@@ -16,12 +16,17 @@ export const signup = async (req, res) => {
       return res.status(400).json({ message: 'Email already registered' })
     }
 
+    if (!password || password.length < 6) {
+      return res.status(400).json({ message: 'Password must be at least 6 characters' })
+    }
+
     const otp = generateOtp()
+    const hashedOtp = await bcrypt.hash(otp, 10)
 
     await Otp.findOneAndDelete({ email })
     await Otp.create({
       email,
-      otp,
+      otp: hashedOtp,
       userData: { fullName, password },
     })
 
@@ -46,14 +51,15 @@ export const verifyOtp = async (req, res) => {
       return res.status(400).json({ message: 'OTP expired. Please try again.' })
     }
 
-    if (otpRecord.otp !== otp) {
+    const isOtpValid = await bcrypt.compare(otp, otpRecord.otp)
+    if (!isOtpValid) {
       return res.status(400).json({ message: 'Invalid OTP' })
     }
 
     const { fullName, password } = otpRecord.userData
     const hashedMasterPassword = await bcrypt.hash(DEFAULT_MASTER_PASSWORD, 12)
 
-    const user = await User.create({
+    await User.create({
       fullName,
       email,
       password,
@@ -87,7 +93,8 @@ export const resendOtp = async (req, res) => {
     }
 
     const otp = generateOtp()
-    otpRecord.otp = otp
+    const hashedOtp = await bcrypt.hash(otp, 10)
+    otpRecord.otp = hashedOtp
     otpRecord.expiresAt = new Date(Date.now() + 10 * 60 * 1000)
     await otpRecord.save()
 

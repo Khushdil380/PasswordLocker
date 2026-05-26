@@ -14,4 +14,4 @@ export const COOKIE_OPTIONS = {
   maxAge: 60 * 60 * 1000, // 1 hour
 }
 
-export const DEFAULT_MASTER_PASSWORD = 'hello@passwordlocker'
+export const DEFAULT_MASTER_PASSWORD = process.env.DEFAULT_MASTER_PASSWORD || 'hello@passwordlocker'
