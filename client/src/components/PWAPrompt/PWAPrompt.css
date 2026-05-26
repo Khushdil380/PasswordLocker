@@ -1,0 +1,56 @@
+.pwa-update-prompt {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background: #1a1a2e;
+  border: 1px solid #9F3AAA;
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  box-shadow: 0 4px 20px rgba(159, 58, 170, 0.3);
+  z-index: 9999;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(1rem);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.pwa-update-prompt p {
+  color: #ffffff;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.pwa-update-btn {
+  background: #9F3AAA;
+  color: #ffffff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+
+.pwa-update-btn:hover {
+  background: #b44ec4;
+}
+
+@media (max-width: 768px) {
+  .pwa-update-prompt {
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+  }
+}
