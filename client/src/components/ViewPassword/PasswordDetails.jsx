@@ -8,18 +8,13 @@ function PasswordDetails({ data }) {
   const versions = data.versions || []
   const current = versions[versionIndex]
 
-  // Support both old format (fields at top level) and new format (fields per version)
-  const getField = (field) => {
-    // If version has the field (even empty string), use it
-    if (current && current[field] !== undefined && current[field] !== null) {
-      return current[field]
-    }
-    // Fallback for old history entries that don't have the field stored
-    if (data[field] !== undefined && data[field] !== null) {
-      return data[field]
-    }
-    return ''
-  }
+  console.log('VIEW DEBUG:', JSON.stringify({ versionIndex, current, dataTitle: data.title, versionsCount: versions.length }))
+
+  const title = current?.title || data.title || ''
+  const description = current?.description || data.description || ''
+  const destinationLink = current?.destinationLink || data.destinationLink || ''
+  const userId = current?.userId || data.userId || ''
+  const password = current?.password || ''
 
   const formatDate = (dateStr) => {
     const date = new Date(dateStr)
@@ -35,15 +30,10 @@ function PasswordDetails({ data }) {
   }
 
   const handleGoTo = () => {
-    let url = getField('destinationLink')
+    let url = destinationLink
     if (url && !url.startsWith('http')) url = 'https://' + url
     if (url) window.open(url, '_blank')
   }
-
-  const title = getField('title')
-  const description = getField('description')
-  const destinationLink = getField('destinationLink')
-  const userId = getField('userId')
 
   return (
     <div className="pwd-details">
@@ -84,11 +74,11 @@ function PasswordDetails({ data }) {
       <div className="pwd-details__row">
         <span className="pwd-details__label">Password</span>
         <span className="pwd-details__value">
-          {current?.password || '—'}
-          {current?.password && (
+          {password || '—'}
+          {password && (
             <button
               className={`pwd-details__copy ${copied === 'password' ? 'pwd-details__copy--done' : ''}`}
-              onClick={() => copyToClipboard(current.password, 'password')}
+              onClick={() => copyToClipboard(password, 'password')}
             >
               {copied === 'password' ? '✓' : <CopyIcon />}
             </button>
