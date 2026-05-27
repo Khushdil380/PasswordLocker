@@ -1,9 +1,17 @@
 {
   "version": 2,
   "builds": [
-    { "src": "src/index.js", "use": "@vercel/node" }
+    { "src": "src/index.js", "use": "@vercel/node" },
+    { "src": "api/cron/keep-alive.js", "use": "@vercel/node" }
   ],
   "routes": [
+    { "src": "/api/cron/keep-alive", "dest": "api/cron/keep-alive.js" },
     { "src": "/(.*)", "dest": "src/index.js" }
+  ],
+  "crons": [
+    {
+      "path": "/api/cron/keep-alive",
+      "schedule": "0 8 * * *"
+    }
   ]
 }
