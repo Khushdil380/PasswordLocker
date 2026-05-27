@@ -8,8 +8,6 @@ function PasswordDetails({ data }) {
   const versions = data.versions || []
   const current = versions[versionIndex]
 
-  console.log('VIEW DEBUG:', JSON.stringify({ versionIndex, current, dataTitle: data.title, versionsCount: versions.length }))
-
   const title = current?.title || data.title || ''
   const description = current?.description || data.description || ''
   const destinationLink = current?.destinationLink || data.destinationLink || ''
