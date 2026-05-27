@@ -38,7 +38,7 @@ app.use('/api/passwords', passwordRoutes)
 
 // Health check
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', message: 'Password Locker API is running' })
+  res.json({ status: 'ok', message: 'Password Locker API is running', version: '1.1.0' })
 })
 
 // Root route
