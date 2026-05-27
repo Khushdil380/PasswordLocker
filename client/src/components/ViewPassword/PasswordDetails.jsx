@@ -10,8 +10,14 @@ function PasswordDetails({ data }) {
 
   // Support both old format (fields at top level) and new format (fields per version)
   const getField = (field) => {
-    if (current && current[field]) return current[field]
-    if (data[field]) return data[field]
+    // If version has the field (even empty string), use it
+    if (current && current[field] !== undefined && current[field] !== null) {
+      return current[field]
+    }
+    // Fallback for old history entries that don't have the field stored
+    if (data[field] !== undefined && data[field] !== null) {
+      return data[field]
+    }
     return ''
   }
 
