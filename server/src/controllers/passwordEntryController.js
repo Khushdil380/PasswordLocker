@@ -59,27 +59,27 @@ export const updatePassword = async (req, res) => {
     if (!title?.trim()) {
       return res.status(400).json({ message: 'Title is required' })
     }
-    if (!password) {
-      return res.status(400).json({ message: 'Password is required' })
-    }
 
     const entry = await Password.findOne({ _id: id, user: req.user._id })
     if (!entry) {
       return res.status(404).json({ message: 'Password entry not found' })
     }
 
-    // Push current password to history before updating
-    entry.history.push({
-      password: entry.password,
-      changedAt: entry.updatedAt,
-    })
+    // Only push to history if password actually changed
+    if (password) {
+      const newEncrypted = encrypt(password)
+      entry.history.push({
+        password: entry.password,
+        changedAt: entry.updatedAt,
+      })
+      entry.password = newEncrypted
+    }
 
-    // Update fields
+    // Update other fields
     entry.title = title.trim()
     entry.description = description?.trim() || ''
     entry.destinationLink = destinationLink?.trim() || ''
     entry.userId = userId?.trim() || ''
-    entry.password = encrypt(password)
     entry.category = category || null
 
     await entry.save()

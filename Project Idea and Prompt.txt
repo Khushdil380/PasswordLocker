@@ -48,3 +48,227 @@ While Implementing and editing the file keep this rule in mind
 
 
 in the component you have made files, i think this should goes to single folder so that it should be clear, because throught the project we will have n numbers of component, so for each there should be seperated folder and then corresponding file in that
+
+
+
+
+
+
+......................Phase - 2...........
+ou should make the preloader of the project with project name and theme aligned. so that i can test it. There should be background glossy effect always follow these rules
+
+So, for Phase 2, we have two key tasks: first, the Preloader.
+
+I would like you to personally create a professional Preloader that aligns perfectly with the specific needs of our project. It should visually convey a sense of security or protection, harmonize with our established color theme, and maintain a strictly professional aesthetic with background glossy effect.
+
+
+
+The second task is the Home Page.
+The Home Page should be structured into multiple distinct segments, as the volume of content is substantial. I will attach a basic sketch—created in Microsoft OneNote—which you can use solely as a reference guide. For more detailed information and specific content requirements, please consult the "Project Context and Requirements" document.
+
+Therefore, the page should include the following sections:
+
+A. Header
+B. Hero Section
+C. Problem Section
+D. Solution Section
+E. How it Works
+F. Privacy and Promises
+G. CTA (Call to Action)
+H. Footer
+
+
+Header Specifications: It should feature a "glassy" visual effect. The left side should display the project icon and project name, while the right side should feature a "Help" icon accompanied by text; hovering over this element should trigger a message prompting the user to contact us via email.
+
+Hero Section Specifications: The background should be white. It requires a Heading and a Subheading that introduce and describe the project (written in "Hinglish"). Additionally—if technically feasible—it would be excellent to incorporate subtle background animations related to security or passwords. and Get started button,(I will implement these into next phase for login/signup)
+
+
+Problem Section Specifications: The background for this section should utilize our primary color theme (purple). It requires a "Problem" heading followed by 3–4 bullet points outlining the specific problems addressed.
+
+Solution Section Specifications: The background should be white, featuring 3–4 bullet points outlining the proposed solutions.
+
+
+"How it Works" Specifications: The background should be purple, and the section should clearly explain the operational mechanics of the project.
+
+
+"Privacy and Promises" Specifications: The background should be white, and you should write the appropriate content tailored for this specific section.
+
+
+CTA (Call to Action) Specifications: The background should be purple, and you should write the appropriate content designed to drive user action.
+
+
+
+Footer: A standard, basic footer. It should include the credit line: "Developed by Khushdil Ansari," along with "With the help of Kiro." Additionally, please include icons linking to my personal portfolio and GitHub profile; I will insert the actual links myself at a later stage.
+
+
+
+
+
+
+
+
+
+
+....................................phase 3..................................
+
+
+Now, Phase 3:
+Implementing the complete Login and Sign-up module.
+
+
+Before proceeding with this implementation, I would like to create a global modal (popup), as it will be utilized in multiple places throughout the application.
+
+
+Popup Features: It should open in the center of the window. When active, the background should display a "glassy" effect. Furthermore, clicking outside the modal should *not* close it; it should only close when the cross button located in the top-right corner is clicked.
+
+
+Thus, whenever the "Get Started" button is clicked, this popup should appear, containing a login form. If a user does not already have an account, a text link to "Create Account" should be provided at the bottom; similarly, if they have forgotten their password, a "Forgot Password" text link should be available.
+
+
+For the Account Creation process:
+The form should request the user's Full Name, Email, Gender, Password, and Confirm Password. An OTP (One-Time Password) will be sent to the provided email address. We will facilitate this delivery using the Brevo API. The email sent should be professional in appearance, incorporating our brand icon and theme. Once the OTP has been successfully verified, a "Welcome" email—containing all relevant project details—should also be sent. Crucially, the user's account should *only* be created after their OTP verification has been successfully completed.
+
+
+
+MongoDB
+password: RpO6d2cEYpZQqqgC
+username: khushdilansari345_db_user
+connection string: mongodb+srv://khushdilansari345_db_user:RpO6d2cEYpZQqqgC@cluster0.x4szvhe.mongodb.net/?appName=Cluster0
+
+
+
+
+
+
+
+.................................Phase 4......................
+
+We have implemented our project almost 50% and we are going to implement the feature after the login part, so in the phase 4 we are interested to implement header after login
+
+in the left side, there should be project icon and name, in the middle professional search box with our theme vibe, after then a buuton "+ Add Password" and then right most will be Profile icon.
+
+
+Click on the drop icon on the side of Profile icon to update email (new email or otp), update name, Change password (otp on email), Change mater password (Otp on email) and create categories (this will create a category for password which will be showing the below: later I will tell you more precisely)
+
+ And all this updation should used already existing modal (popup) 
+
+ So first of fall implement this thing later I will tell you, how this work like how search works,
+
+ One more thing in the mobike view: left side icon, search bar, + icon and then profile icon on the right side.
+
+
+
+
+
+
+
+
+
+
+.....................phase 5......................
+
+In the next phase, we need to work on the "Add New Password" and "Create Categories" options.
+
+Clicking on "Add Password" should open a modal popup containing the same existing features, which must include the following input fields:
+
+1.  **Title** (e.g., "SBI Profile Password"; *mandatory*)
+
+2.  **Description**
+
+3.  **Destination Link**
+
+4.  **User ID**
+
+5.  **Password** (This field should be accompanied by a "Generate" button option, allowing users to randomly generate a strong, 12-digit password. Clicking the button again should generate a different random password; alternatively, users should be able to enter a password manually.)
+
+6.  **Tag** (This should be a dropdown menu for categories, displaying only the existing categories.)
+
+And finally, a **Save** button.
+
+Ensure that certain input fields are placed side-by-side to avoid any issues requiring vertical scrolling.
+
+This is how we can save passwords; however, before doing so, we must address the category feature. This should function similarly to how we create folders in Telegram or WhatsApp—arranged horizontally. The first option should be "All," followed by the user-created categories, and so on, flowing from left to right. If the screen width becomes fully occupied, the categories should become scrollable (similar to Telegram or WhatsApp) so that users can navigate through them by swiping left or right.
+
+Below this section, the saved passwords should be displayed.
+
+I have attached a basic sketch created using Microsoft OneNote for reference.
+
+
+
+
+
+
+........................ phase 6..............................
+
+
+Ab next phase me view ( eye) ka implement karna chahate hai, isme aisa hoga ki eye par click karne ke baad master password dalne ka option aayega, Master password enter krne ke baad hi hm password dekh skte hai. 
+
+Password view model iss trike se rhega
+
+To same popup model open hoga, jisme label and uska content same line me hoga
+
+Title hoga, description hoga, destination link hoga and iske samne goto ka button hoga jis par click krne ke baad uss website par chale jaye and user id and password automatic fill ho jaye yadi possible ho to, userid hoga and iske samne one click copy icon hoga, and fir password hoga and iske samne bhi one click copy icon hoga. 
+
+
+Aur niche left right me arrow button rhenge, taki yadi ek hi I'd ya destination ka password bar bar change Kiya gya hoga to date wise dekh ske, sbse phle latest wala password popup open hoga, yadi iske phle koi other password tha to wo ham left arrow par click krke dekh skte hai and so on.... Jitne bhi time password change Kiya gya hoga wo sb updated hota jayega. 
+
+And middle of left right arrow updated date show hona chahiye.
+
+
+
+
+
+
+
+...........................phase 7.....................
+Now, in the next phase, we need to work on the edit option. When the edit icon is clicked, the same form used for adding passwords should open. In this form, the Title, Description, Destination Link, and User ID fields should be pre-filled with the existing data, while the password input box should remain empty. Users should be able to manually edit the other fields as well; however, since these details will generally remain unchanged, they should appear pre-filled by default.
+
+Furthermore, upon saving the changes, a separate copy of the entry should be saved so that it can be viewed later. In this manner, a new copy should be generated and saved for every update made.
+
+
+
+
+
+
+
+
+
+
+
+...........................
+
+Okay, in the profile we should provide one another option "edit categories
+
+because we have no option to edit/delete/rearrange the categories
+
+
+
+so we should provide the this option in the profile dropdown
+
+
+
+after clicking show all the categories name except all
+
+edit: We can change the name of the categories
+
+rearrange means we can assign the number like first and top will be all, after that 2nd will be just right side of all, 3rd will be 2nd right side of all and so on
+
+
+
+and delete categories means, remove the levels from password belongs to that categories and delete the categories name only, not password.
+
+
+
+now they that password has no categories, it can be visible in all section
+
+
+
+
+
+
+
+
+
+
+
+

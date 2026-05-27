@@ -43,7 +43,7 @@ function AddPasswordForm({ onSuccess, editData }) {
       setError('Title is required')
       return
     }
-    if (!formData.password) {
+    if (!isEdit && !formData.password) {
       setError('Password is required')
       return
     }
@@ -55,11 +55,16 @@ function AddPasswordForm({ onSuccess, editData }) {
         : `${API_BASE_URL}/passwords`
       const method = isEdit ? 'PUT' : 'POST'
 
+      const payload = { ...formData }
+      if (isEdit && !payload.password) {
+        delete payload.password
+      }
+
       const res = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       })
       const data = await res.json()
       if (!res.ok) { setError(data.message); return }
