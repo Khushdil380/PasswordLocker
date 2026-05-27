@@ -27,10 +27,10 @@ export const viewPassword = async (req, res) => {
 
     const decryptedCurrent = decrypt(entry.password)
     const historyDecrypted = entry.history.map((h) => ({
-      title: h.title || entry.title,
-      description: h.description || '',
-      destinationLink: h.destinationLink || '',
-      userId: h.userId || '',
+      title: h.title !== undefined ? h.title : entry.title,
+      description: h.description !== undefined ? h.description : entry.description,
+      destinationLink: h.destinationLink !== undefined ? h.destinationLink : entry.destinationLink,
+      userId: h.userId !== undefined ? h.userId : entry.userId,
       password: decrypt(h.password),
       changedAt: h.changedAt,
     }))
