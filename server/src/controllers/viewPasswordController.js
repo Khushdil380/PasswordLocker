@@ -51,6 +51,10 @@ export const viewPassword = async (req, res) => {
     res.status(200).json({
       entry: {
         _id: entry._id,
+        title: entry.title,
+        description: entry.description,
+        destinationLink: entry.destinationLink,
+        userId: entry.userId,
         category: entry.category,
         versions: allVersions,
       },

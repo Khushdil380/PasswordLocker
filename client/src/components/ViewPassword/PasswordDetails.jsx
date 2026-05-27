@@ -8,6 +8,13 @@ function PasswordDetails({ data }) {
   const versions = data.versions || []
   const current = versions[versionIndex]
 
+  // Support both old format (fields at top level) and new format (fields per version)
+  const getField = (field) => {
+    if (current && current[field]) return current[field]
+    if (data[field]) return data[field]
+    return ''
+  }
+
   const formatDate = (dateStr) => {
     const date = new Date(dateStr)
     return date.toLocaleDateString('en-IN', {
@@ -22,25 +29,30 @@ function PasswordDetails({ data }) {
   }
 
   const handleGoTo = () => {
-    let url = current?.destinationLink
+    let url = getField('destinationLink')
     if (url && !url.startsWith('http')) url = 'https://' + url
     if (url) window.open(url, '_blank')
   }
 
+  const title = getField('title')
+  const description = getField('description')
+  const destinationLink = getField('destinationLink')
+  const userId = getField('userId')
+
   return (
     <div className="pwd-details">
-      <h2 className="pwd-details__title">{current?.title || data.title || '—'}</h2>
+      <h2 className="pwd-details__title">{title || '—'}</h2>
 
       <div className="pwd-details__row">
         <span className="pwd-details__label">Description</span>
-        <span className="pwd-details__value">{current?.description || '—'}</span>
+        <span className="pwd-details__value">{description || '—'}</span>
       </div>
 
       <div className="pwd-details__row">
         <span className="pwd-details__label">Destination</span>
         <span className="pwd-details__value pwd-details__value--link">
-          {current?.destinationLink || '—'}
-          {current?.destinationLink && (
+          {destinationLink || '—'}
+          {destinationLink && (
             <button className="pwd-details__goto" onClick={handleGoTo}>
               Go To
             </button>
@@ -51,11 +63,11 @@ function PasswordDetails({ data }) {
       <div className="pwd-details__row">
         <span className="pwd-details__label">User ID</span>
         <span className="pwd-details__value">
-          {current?.userId || '—'}
-          {current?.userId && (
+          {userId || '—'}
+          {userId && (
             <button
               className={`pwd-details__copy ${copied === 'userId' ? 'pwd-details__copy--done' : ''}`}
-              onClick={() => copyToClipboard(current.userId, 'userId')}
+              onClick={() => copyToClipboard(userId, 'userId')}
             >
               {copied === 'userId' ? '✓' : <CopyIcon />}
             </button>
