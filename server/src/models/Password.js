@@ -1,6 +1,10 @@
 import mongoose from 'mongoose'
 
 const passwordHistorySchema = new mongoose.Schema({
+  title: { type: String, default: '' },
+  description: { type: String, default: '' },
+  destinationLink: { type: String, default: '' },
+  userId: { type: String, default: '' },
   password: { type: String, required: true },
   changedAt: { type: Date, default: Date.now },
 }, { _id: false })

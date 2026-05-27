@@ -22,25 +22,25 @@ function PasswordDetails({ data }) {
   }
 
   const handleGoTo = () => {
-    let url = data.destinationLink
+    let url = current?.destinationLink
     if (url && !url.startsWith('http')) url = 'https://' + url
     if (url) window.open(url, '_blank')
   }
 
   return (
     <div className="pwd-details">
-      <h2 className="pwd-details__title">{data.title}</h2>
+      <h2 className="pwd-details__title">{current?.title || data.title || '—'}</h2>
 
       <div className="pwd-details__row">
         <span className="pwd-details__label">Description</span>
-        <span className="pwd-details__value">{data.description || '—'}</span>
+        <span className="pwd-details__value">{current?.description || '—'}</span>
       </div>
 
       <div className="pwd-details__row">
         <span className="pwd-details__label">Destination</span>
         <span className="pwd-details__value pwd-details__value--link">
-          {data.destinationLink || '—'}
-          {data.destinationLink && (
+          {current?.destinationLink || '—'}
+          {current?.destinationLink && (
             <button className="pwd-details__goto" onClick={handleGoTo}>
               Go To
             </button>
@@ -51,11 +51,11 @@ function PasswordDetails({ data }) {
       <div className="pwd-details__row">
         <span className="pwd-details__label">User ID</span>
         <span className="pwd-details__value">
-          {data.userId || '—'}
-          {data.userId && (
+          {current?.userId || '—'}
+          {current?.userId && (
             <button
               className={`pwd-details__copy ${copied === 'userId' ? 'pwd-details__copy--done' : ''}`}
-              onClick={() => copyToClipboard(data.userId, 'userId')}
+              onClick={() => copyToClipboard(current.userId, 'userId')}
             >
               {copied === 'userId' ? '✓' : <CopyIcon />}
             </button>

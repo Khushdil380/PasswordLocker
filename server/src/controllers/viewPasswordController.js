@@ -27,23 +27,30 @@ export const viewPassword = async (req, res) => {
 
     const decryptedCurrent = decrypt(entry.password)
     const historyDecrypted = entry.history.map((h) => ({
+      title: h.title || entry.title,
+      description: h.description || '',
+      destinationLink: h.destinationLink || '',
+      userId: h.userId || '',
       password: decrypt(h.password),
       changedAt: h.changedAt,
     }))
 
     // Combine: latest first, then history (older)
     const allVersions = [
-      { password: decryptedCurrent, changedAt: entry.updatedAt },
+      {
+        title: entry.title,
+        description: entry.description,
+        destinationLink: entry.destinationLink,
+        userId: entry.userId,
+        password: decryptedCurrent,
+        changedAt: entry.updatedAt,
+      },
       ...historyDecrypted,
     ]
 
     res.status(200).json({
       entry: {
         _id: entry._id,
-        title: entry.title,
-        description: entry.description,
-        destinationLink: entry.destinationLink,
-        userId: entry.userId,
         category: entry.category,
         versions: allVersions,
       },
