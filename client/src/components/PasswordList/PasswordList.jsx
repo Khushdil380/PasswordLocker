@@ -1,7 +1,15 @@
 import PasswordItem from './PasswordItem'
 import './PasswordList.css'
 
-function PasswordList({ passwords, onView, onEdit }) {
+function PasswordList({ passwords, loading, onView, onEdit }) {
+  if (loading) {
+    return (
+      <div className="pwd-list__loading">
+        <span className="pwd-list__spinner" />
+      </div>
+    )
+  }
+
   if (passwords.length === 0) {
     return (
       <div className="pwd-list__empty">

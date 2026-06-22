@@ -1,5 +1,5 @@
 import Password from '../models/Password.js'
-import { encrypt } from '../utils/encryption.js'
+import { encrypt, decrypt } from '../utils/encryption.js'
 
 export const getPasswords = async (req, res) => {
   try {
@@ -68,22 +68,42 @@ export const updatePassword = async (req, res) => {
       return res.status(404).json({ message: 'Password entry not found' })
     }
 
-    // Save current state as a history snapshot (all fields)
-    entry.history.push({
-      title: entry.title,
-      description: entry.description,
-      destinationLink: entry.destinationLink,
-      userId: entry.userId,
-      password: entry.password,
-      changedAt: entry.updatedAt,
-    })
+    // Prepare new values
+    const newDescription = description?.trim() || ''
+    const newDestinationLink = destinationLink?.trim() || ''
+    const newUserId = userId?.trim() || ''
+    const newPassword = password
+
+    // Compare tracked fields with current values to decide if history snapshot is needed
+    const currentPassword = decrypt(entry.password)
+    const hasChange =
+      entry.description !== newDescription ||
+      entry.destinationLink !== newDestinationLink ||
+      entry.userId !== newUserId ||
+      currentPassword !== newPassword
+
+    if (hasChange) {
+      // Push current state as history snapshot
+      entry.history.unshift({
+        description: entry.description,
+        destinationLink: entry.destinationLink,
+        userId: entry.userId,
+        password: entry.password,
+        changedAt: entry.updatedAt,
+      })
+
+      // Cap history at 10 entries (keep newest 10)
+      if (entry.history.length > 10) {
+        entry.history = entry.history.slice(0, 10)
+      }
+    }
 
     // Update all fields
     entry.title = title.trim()
-    entry.description = description?.trim() || ''
-    entry.destinationLink = destinationLink?.trim() || ''
-    entry.userId = userId?.trim() || ''
-    entry.password = encrypt(password)
+    entry.description = newDescription
+    entry.destinationLink = newDestinationLink
+    entry.userId = newUserId
+    entry.password = encrypt(newPassword)
     entry.category = category || null
 
     await entry.save()

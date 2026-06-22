@@ -4,22 +4,22 @@ const solutions = [
   {
     icon: '🔐',
     title: 'One Master Password',
-    desc: 'Ek password se apne saare credentials access karo — koi confusion nahi.',
+    desc: 'Access all your credentials with a single password — no confusion, no clutter.',
   },
   {
     icon: '🛡️',
     title: 'Encrypted Storage',
-    desc: 'Passwords encrypted format mein store hote hain — koi bhi read nahi kar sakta.',
+    desc: 'Passwords are stored in AES-256 encrypted format — no one can read them, not even us.',
   },
   {
     icon: '⚡',
     title: 'One-Click Access',
-    desc: 'Copy password ya direct website pe jao — fast aur seamless experience.',
+    desc: 'Copy passwords or navigate directly to websites — fast and seamless.',
   },
   {
     icon: '📂',
     title: 'Smart Categories',
-    desc: 'Banking, social, work — sab organized. Jab chahein, jahan chahein access karo.',
+    desc: 'Organize by Banking, Social, Work — access what you need, when you need it.',
   },
 ]
 

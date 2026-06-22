@@ -15,6 +15,7 @@ function Dashboard() {
   const [searchQuery, setSearchQuery] = useState('')
   const [viewEntryId, setViewEntryId] = useState(null)
   const [editEntry, setEditEntry] = useState(null)
+  const [loadingPasswords, setLoadingPasswords] = useState(false)
 
   useEffect(() => {
     fetchCategories()
@@ -22,6 +23,7 @@ function Dashboard() {
   }, [])
 
   useEffect(() => {
+    setPasswords([])
     fetchPasswords()
   }, [activeCategory])
 
@@ -34,6 +36,7 @@ function Dashboard() {
   }, [])
 
   const fetchPasswords = async () => {
+    setLoadingPasswords(true)
     try {
       const url = activeCategory === 'all'
         ? `${API_BASE_URL}/passwords`
@@ -41,7 +44,9 @@ function Dashboard() {
       const res = await fetch(url, { credentials: 'include' })
       const data = await res.json()
       if (res.ok) setPasswords(data.passwords)
-    } catch { /* silent */ }
+    } catch { /* silent */ } finally {
+      setLoadingPasswords(false)
+    }
   }
 
   const filteredPasswords = useMemo(() => {
@@ -79,6 +84,7 @@ function Dashboard() {
         />
         <PasswordList
           passwords={filteredPasswords}
+          loading={loadingPasswords}
           onView={(id) => setViewEntryId(id)}
           onEdit={(entry) => setEditEntry(entry)}
         />

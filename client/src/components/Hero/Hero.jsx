@@ -13,14 +13,14 @@ function Hero({ onGetStarted }) {
         </div>
 
         <h1 className="hero__heading">
-          Sab passwords ek jagah,{' '}
-          <span className="hero__heading-highlight">safe aur secure</span>
+          All your passwords in one place,{' '}
+          <span className="hero__heading-highlight">safe and secure</span>
         </h1>
 
         <p className="hero__subheading">
-          Ab aapko har ek password yaad rakhne ki zaroorat nahi.
-          Bas ek Master Password se apne saare passwords access karo —
-          securely encrypted, sirf aapke liye.
+          No more remembering dozens of passwords.
+          Access all your credentials with a single Master Password —
+          securely encrypted, accessible only by you.
         </p>
 
         <button className="hero__btn" onClick={onGetStarted}>

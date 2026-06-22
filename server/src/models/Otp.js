@@ -11,8 +11,8 @@ const otpSchema = new mongoose.Schema({
     required: true,
   },
   userData: {
-    fullName: String,
-    password: String,
+    type: mongoose.Schema.Types.Mixed,
+    default: {},
   },
   expiresAt: {
     type: Date,

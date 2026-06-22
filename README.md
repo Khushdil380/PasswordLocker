@@ -2,7 +2,7 @@
   <img src="client/public/favicon.svg" alt="Password Locker Logo" width="100" height="100" />
 </p>
 
-<h1 align="center">🔐 Password Locker</h1>
+<h1 align="center">Password Locker</h1>
 
 <p align="center">
   <strong>Your passwords, one master key.</strong><br/>
@@ -35,60 +35,64 @@
 
 ---
 
-## 💡 The Problem
+## The Problem
 
 We all forget passwords. Multiple bank accounts, social media, work tools — the list never ends. Resetting passwords is frustrating, sometimes restricted, and always time-consuming.
 
-## ✨ The Solution
+## The Solution
 
 **Password Locker** lets you manage all your passwords with a single master password. No more memorizing dozens of credentials. One login, total control.
 
 ---
 
-## 🎯 Features
+## Features
 
 <table>
   <tr>
     <td width="50%">
 
-### 🔑 Core
+### Core
 - **Master Password** protection for viewing stored passwords
-- **AES Encryption** — passwords stored encrypted, never in plain text
+- **AES-256-GCM Encryption** — passwords stored encrypted, never in plain text
+- **Password version history** — up to 10 versions tracked with change highlighting
 - **Auto-generated passwords** with customizable strength
 - **One-click copy** & **Go To** destination links
-- **Category-based** password organization
+- **Category-based** password organization with drag reorder
 
 </td>
     <td width="50%">
 
-### 🛡️ Security
-- **JWT Authentication** with 1-hour auto-expiry
+### Security
+- **JWT Authentication** with 1-hour auto-expiry via httpOnly cookies
 - **OTP Verification** via Brevo email service
-- **Encrypted storage** using industry-standard algorithms
-- **Secure session management** — no back/forward button exploits
+- **DB-based rate limiting** for master password attempts (serverless-safe)
+- **IP-aware rate limiting** for login and OTP routes
 - **Master password** required to reveal any stored credential
+- **Brute-force protection** — 5 attempts then 15-minute lockout
 
 </td>
   </tr>
   <tr>
     <td width="50%">
 
-### 🎨 User Experience
+### User Experience
 - **Animated preloader** on app launch
 - **Responsive design** — Desktop & Mobile
 - **Search functionality** across all passwords
-- **Profile management** with password change
+- **Loading indicators** on category switches
+- **Profile management** — change name, email, password, master password
 - **Smooth transitions** & consistent purple theme
 
 </td>
     <td width="50%">
 
-### ⚙️ Technical
+### Technical
 - **Modular architecture** — each component in its own folder
-- **No file exceeds 100 lines** — clean, maintainable code
-- **API proxy** in development for seamless backend calls
+- **Clean, maintainable code** — small focused files
+- **API proxy** via Vercel rewrites for seamless backend calls
 - **Separate deployments** — client & server on Vercel
 - **Environment-based** configuration
+- **MongoDB TTL indexes** for auto-cleanup of expired data
 
 </td>
   </tr>
@@ -96,7 +100,7 @@ We all forget passwords. Multiple bank accounts, social media, work tools — th
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 <table align="center">
   <tr>
@@ -117,7 +121,7 @@ We all forget passwords. Multiple bank accounts, social media, work tools — th
   </tr>
   <tr>
     <td><strong>Authentication</strong></td>
-    <td>JWT, bcrypt.js, OTP via email</td>
+    <td>JWT (httpOnly cookies), bcrypt.js, OTP via email</td>
   </tr>
   <tr>
     <td><strong>Email Service</strong></td>
@@ -125,11 +129,11 @@ We all forget passwords. Multiple bank accounts, social media, work tools — th
   </tr>
   <tr>
     <td><strong>Encryption</strong></td>
-    <td>AES encryption for stored passwords</td>
+    <td>AES-256-GCM for stored passwords</td>
   </tr>
   <tr>
     <td><strong>Deployment</strong></td>
-    <td>Vercel (Client + Server)</td>
+    <td>Vercel (Client + Server as serverless functions)</td>
   </tr>
   <tr>
     <td><strong>Version Control</strong></td>
@@ -139,7 +143,7 @@ We all forget passwords. Multiple bank accounts, social media, work tools — th
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 PasswordLocker/
@@ -161,7 +165,7 @@ PasswordLocker/
 │   │   │   ├── ViewPassword/
 │   │   │   └── ...
 │   │   ├── context/            # React Context (Auth state)
-│   │   ├── constants/          # App-wide constants
+│   │   ├── constants/          # App-wide constants & theme
 │   │   ├── pages/              # Page components
 │   │   │   ├── Home/
 │   │   │   └── Dashboard/
@@ -178,18 +182,21 @@ PasswordLocker/
 │   │   ├── controllers/        # Route handlers
 │   │   │   ├── authController.js
 │   │   │   ├── categoryController.js
+│   │   │   ├── forgotPasswordController.js
+│   │   │   ├── loginController.js
 │   │   │   ├── passwordController.js
 │   │   │   ├── passwordEntryController.js
 │   │   │   ├── profileController.js
 │   │   │   └── viewPasswordController.js
-│   │   ├── middleware/         # JWT auth middleware
+│   │   ├── middleware/         # Auth & rate limiting middleware
 │   │   ├── models/             # Mongoose schemas
 │   │   │   ├── User.js
 │   │   │   ├── Password.js
 │   │   │   ├── Category.js
+│   │   │   ├── MasterAttempt.js
 │   │   │   └── Otp.js
 │   │   ├── routes/             # API route definitions
-│   │   ├── utils/              # Helpers (email, encryption, JWT)
+│   │   ├── utils/              # Helpers (email, encryption, JWT, OTP)
 │   │   └── index.js            # Server entry point
 │   ├── vercel.json
 │   ├── .env.example
@@ -201,7 +208,7 @@ PasswordLocker/
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -235,6 +242,7 @@ BREVO_API_KEY=your_brevo_api_key
 BREVO_SENDER_EMAIL=your_verified_sender_email
 CLIENT_URL=http://localhost:5173
 ENCRYPTION_KEY=your_strong_encryption_key_here
+DEFAULT_MASTER_PASSWORD=your_default_master_password
 NODE_ENV=development
 ```
 
@@ -256,7 +264,7 @@ The app will be running at `http://localhost:5173`
 
 ---
 
-## 🌐 Deployment
+## Deployment
 
 Both client and server are deployed on **Vercel** as separate projects:
 
@@ -269,38 +277,43 @@ The client's `vercel.json` proxies `/api/*` requests to the backend deployment.
 
 ---
 
-## 🔒 Security Highlights
+## Security Highlights
 
 | Feature | Implementation |
 |---------|---------------|
-| Password Storage | AES encrypted — never stored in plain text |
-| Authentication | JWT tokens with 1-hour expiration |
+| Password Storage | AES-256-GCM encrypted — never stored in plain text |
+| Authentication | JWT tokens in httpOnly cookies with 1-hour expiration |
 | Master Password | Required to decrypt & view any stored password |
-| OTP Verification | Email-based OTP for account recovery |
-| Session Security | Auto-logout after 1 hour, immune to browser navigation |
-| Password Hashing | bcrypt with salt rounds for user account passwords |
+| Brute-Force Protection | DB-based attempt tracking — 5 failures triggers 15-min lockout |
+| OTP Verification | Email-based OTP for signup, email change, and password changes |
+| Session Security | Auto-logout after 1 hour, secure cookie flags in production |
+| Password Hashing | bcrypt with 12 salt rounds for user & master passwords |
+| Rate Limiting | IP-based for login/OTP, user-based for master password |
 
 ---
 
-## 🎨 Design Philosophy
+## Password Version History
+
+Every time you update a password entry (description, destination link, user ID, or password), the previous state is saved as a version:
+
+- Up to **10 versions** are stored per entry (oldest auto-deleted)
+- **Changed fields are highlighted** in your theme color when viewing history
+- Navigate between versions with arrow buttons
+- Only actual changes trigger a new version — no duplicates
+
+---
+
+## Design Philosophy
 
 - **Color Theme:** `#9F3AAA` Purple — consistent across all components
 - **Font:** Roboto Slab Medium
-- **Responsiveness:** Two breakpoints — Desktop/Laptop & Mobile
-- **Modularity:** Every component in its own folder, no file exceeds 100 lines
-- **Animations:** Smooth transitions and consistent motion design
+- **Responsiveness:** Desktop/Laptop & Mobile breakpoints
+- **Modularity:** Every component in its own folder with co-located CSS
+- **Animations:** Smooth transitions and loading indicators
 
 ---
 
-## 📱 Screenshots
-
-<p align="center">
-  <em>Landing Page • Dashboard • Add Password • View Password</em>
-</p>
-
----
-
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
@@ -310,7 +323,7 @@ The client's `vercel.json` proxies `/api/*` requests to the backend deployment.
 
 ---
 
-## 👨‍💻 Author
+## Author
 
 <p align="center">
   <a href="https://github.com/Khushdil380">
@@ -324,6 +337,4 @@ The client's `vercel.json` proxies `/api/*` requests to the backend deployment.
   <img src="client/public/favicon.svg" alt="Password Locker" width="40" height="40" />
   <br/>
   <strong>Password Locker</strong> — Because remembering one password is enough.
-  <br/><br/>
-  <img src="https://img.shields.io/badge/Made_with-❤️-9F3AAA?style=flat-square" alt="Made with love" />
 </p>

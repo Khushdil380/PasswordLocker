@@ -1,7 +1,6 @@
 import mongoose from 'mongoose'
 
 const passwordHistorySchema = new mongoose.Schema({
-  title: { type: String, default: '' },
   description: { type: String, default: '' },
   destinationLink: { type: String, default: '' },
   userId: { type: String, default: '' },

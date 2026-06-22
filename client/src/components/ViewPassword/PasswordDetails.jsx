@@ -7,12 +7,15 @@ function PasswordDetails({ data }) {
 
   const versions = data.versions || []
   const current = versions[versionIndex]
+  const changedFields = current?.changedFields || []
 
-  const title = current?.title || data.title || ''
-  const description = current?.description || data.description || ''
-  const destinationLink = current?.destinationLink || data.destinationLink || ''
-  const userId = current?.userId || data.userId || ''
+  const title = data.title || ''
+  const description = current?.description || ''
+  const destinationLink = current?.destinationLink || ''
+  const userId = current?.userId || ''
   const password = current?.password || ''
+
+  const isChanged = (field) => changedFields.includes(field)
 
   const formatDate = (dateStr) => {
     const date = new Date(dateStr)
@@ -37,14 +40,29 @@ function PasswordDetails({ data }) {
     <div className="pwd-details">
       <h2 className="pwd-details__title">{title || '—'}</h2>
 
-      <div className="pwd-details__row">
-        <span className="pwd-details__label">Description</span>
-        <span className="pwd-details__value">{description || '—'}</span>
+      {versions.length > 1 && (
+        <div className="pwd-details__version-badge">
+          Version {versions.length - versionIndex} of {versions.length}
+          {versionIndex === 0 && <span className="pwd-details__current-tag">Current</span>}
+        </div>
+      )}
+
+      <div className={`pwd-details__row ${isChanged('description') ? 'pwd-details__row--changed' : ''}`}>
+        <span className="pwd-details__label">
+          Description
+          {isChanged('description') && <span className="pwd-details__changed-dot" />}
+        </span>
+        <span className={`pwd-details__value ${isChanged('description') ? 'pwd-details__value--changed' : ''}`}>
+          {description || '—'}
+        </span>
       </div>
 
-      <div className="pwd-details__row">
-        <span className="pwd-details__label">Destination</span>
-        <span className="pwd-details__value pwd-details__value--link">
+      <div className={`pwd-details__row ${isChanged('destinationLink') ? 'pwd-details__row--changed' : ''}`}>
+        <span className="pwd-details__label">
+          Destination
+          {isChanged('destinationLink') && <span className="pwd-details__changed-dot" />}
+        </span>
+        <span className={`pwd-details__value pwd-details__value--link ${isChanged('destinationLink') ? 'pwd-details__value--changed' : ''}`}>
           {destinationLink || '—'}
           {destinationLink && (
             <button className="pwd-details__goto" onClick={handleGoTo}>
@@ -54,9 +72,12 @@ function PasswordDetails({ data }) {
         </span>
       </div>
 
-      <div className="pwd-details__row">
-        <span className="pwd-details__label">User ID</span>
-        <span className="pwd-details__value">
+      <div className={`pwd-details__row ${isChanged('userId') ? 'pwd-details__row--changed' : ''}`}>
+        <span className="pwd-details__label">
+          User ID
+          {isChanged('userId') && <span className="pwd-details__changed-dot" />}
+        </span>
+        <span className={`pwd-details__value ${isChanged('userId') ? 'pwd-details__value--changed' : ''}`}>
           {userId || '—'}
           {userId && (
             <button
@@ -69,9 +90,12 @@ function PasswordDetails({ data }) {
         </span>
       </div>
 
-      <div className="pwd-details__row">
-        <span className="pwd-details__label">Password</span>
-        <span className="pwd-details__value">
+      <div className={`pwd-details__row ${isChanged('password') ? 'pwd-details__row--changed' : ''}`}>
+        <span className="pwd-details__label">
+          Password
+          {isChanged('password') && <span className="pwd-details__changed-dot" />}
+        </span>
+        <span className={`pwd-details__value ${isChanged('password') ? 'pwd-details__value--changed' : ''}`}>
           {password || '—'}
           {password && (
             <button

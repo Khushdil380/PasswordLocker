@@ -70,18 +70,16 @@ export const viewPassword = async (req, res) => {
 
     const decryptedCurrent = decrypt(entry.password)
     const historyDecrypted = entry.history.map((h) => ({
-      title: h.title !== undefined ? h.title : entry.title,
-      description: h.description !== undefined ? h.description : entry.description,
-      destinationLink: h.destinationLink !== undefined ? h.destinationLink : entry.destinationLink,
-      userId: h.userId !== undefined ? h.userId : entry.userId,
+      description: h.description,
+      destinationLink: h.destinationLink,
+      userId: h.userId,
       password: decrypt(h.password),
       changedAt: h.changedAt,
     }))
 
-    // Combine: latest first, then history (older)
+    // Combine: latest (current) first, then history (newer to older)
     const allVersions = [
       {
-        title: entry.title,
         description: entry.description,
         destinationLink: entry.destinationLink,
         userId: entry.userId,
@@ -90,6 +88,23 @@ export const viewPassword = async (req, res) => {
       },
       ...historyDecrypted,
     ]
+
+    // Mark which fields changed compared to the next older version
+    for (let i = 0; i < allVersions.length; i++) {
+      if (i < allVersions.length - 1) {
+        const current = allVersions[i]
+        const older = allVersions[i + 1]
+        const changedFields = []
+        if (current.description !== older.description) changedFields.push('description')
+        if (current.destinationLink !== older.destinationLink) changedFields.push('destinationLink')
+        if (current.userId !== older.userId) changedFields.push('userId')
+        if (current.password !== older.password) changedFields.push('password')
+        allVersions[i].changedFields = changedFields
+      } else {
+        // Oldest version — no comparison, it's the baseline
+        allVersions[i].changedFields = []
+      }
+    }
 
     res.status(200).json({
       entry: {

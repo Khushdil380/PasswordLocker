@@ -3,19 +3,19 @@ import './Problem.css'
 const problems = [
   {
     icon: '🤯',
-    text: 'Multiple accounts, multiple passwords — yaad rakhna almost impossible hai.',
+    text: 'Multiple accounts, multiple passwords — remembering them all is nearly impossible.',
   },
   {
     icon: '⏳',
-    text: '"Forgot Password" process slow hai, limited attempts hain, aur kabhi credentials hi nahi milte.',
+    text: '"Forgot Password" flows are slow, have limited attempts, and sometimes credentials never arrive.',
   },
   {
     icon: '⚠️',
-    text: 'Ek hi password har jagah use karna risky hai — ek breach se sab expose.',
+    text: 'Reusing one password everywhere is risky — one breach exposes everything.',
   },
   {
     icon: '📝',
-    text: 'Sticky notes ya phone mein save karna? Bilkul safe nahi hai.',
+    text: 'Saving passwords on sticky notes or in your phone? Not safe at all.',
   },
 ]
 
@@ -25,7 +25,7 @@ function Problem() {
       <div className="problem__inner">
         <span className="problem__label">The Problem</span>
         <h2 className="problem__heading">
-          Passwords manage karna itna mushkil kyun hai?
+          Why is managing passwords so difficult?
         </h2>
         <div className="problem__grid">
           {problems.map((item, i) => (

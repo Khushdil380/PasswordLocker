@@ -4,22 +4,22 @@ const steps = [
   {
     number: '01',
     title: 'Create Account',
-    desc: 'Sign up with your email and set a strong Master Password.',
+    desc: 'Sign up with your email and get started with a default Master Password.',
   },
   {
     number: '02',
     title: 'Add Passwords',
-    desc: 'Save your passwords with title, description, and website link.',
+    desc: 'Save credentials with title, description, user ID, and destination link.',
   },
   {
     number: '03',
-    title: 'Access Anytime',
-    desc: 'Login with your Master Password and access all credentials securely.',
+    title: 'Access Securely',
+    desc: 'Enter your Master Password to view any stored credential — fully decrypted.',
   },
   {
     number: '04',
-    title: 'Copy & Go',
-    desc: 'One-click copy password or navigate directly to the website.',
+    title: 'Track Changes',
+    desc: 'Every update is versioned. Browse history and see exactly what changed.',
   },
 ]
 
