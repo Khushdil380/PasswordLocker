@@ -46,3 +46,14 @@
   background: var(--color-primary-dark);
   color: #ffffff;
 }
+
+@media (max-width: 768px) {
+  .category-tabs__item {
+    padding: 0.4rem 0.85rem;
+    font-size: 0.75rem;
+  }
+
+  .category-tabs__scroll {
+    gap: 0.35rem;
+  }
+}
