@@ -18,15 +18,6 @@ export const otpLimiter = rateLimit({
   legacyHeaders: false,
 })
 
-// Limiter for master password verification
-export const masterPasswordLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5,
-  message: { message: 'Too many attempts. Please try again after 15 minutes.' },
-  standardHeaders: true,
-  legacyHeaders: false,
-})
-
 // General API limiter
 export const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,

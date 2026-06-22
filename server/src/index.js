@@ -14,6 +14,9 @@ dotenv.config()
 
 const app = express()
 
+// Trust proxy (Vercel, etc.) so rate limiters see real client IPs
+app.set('trust proxy', 1)
+
 // Middleware
 app.use(cors(CORS_OPTIONS))
 app.use(express.json({ limit: '10kb' }))
