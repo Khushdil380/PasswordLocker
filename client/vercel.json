@@ -1,6 +1,7 @@
 {
   "rewrites": [
     { "source": "/api/(.*)", "destination": "https://password-locker-backend-pi.vercel.app/api/$1" },
+    { "source": "/google67c7e6687dec4eb6.html", "destination": "/google67c7e6687dec4eb6.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
